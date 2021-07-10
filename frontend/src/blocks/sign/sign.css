@@ -1,0 +1,21 @@
+.sign {
+  padding-top: 60px;
+  margin: auto;
+  width: 358px;
+  background: #000;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, .15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  position: relative;
+  min-height: 100%;
+  height: 100%;
+  }
+
+@media screen and (max-width: 767px) {
+  .sign {
+    width: calc(100% - 30px);
+    padding: 0 22px 25px;
+  }
+}

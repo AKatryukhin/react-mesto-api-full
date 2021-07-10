@@ -1,0 +1,21 @@
+.sign__input {
+  width: 100%;
+  font-family: "Inter", "Arial", "Helvetica", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
+  margin-bottom: 30px;
+  padding: 0 0 13px;
+  box-sizing: border-box;
+  color: #CCCCCC;
+  background-color: #000;
+  border: none;
+  border-bottom: 2px solid #CCCCCC;
+}
+
+@media screen and (max-width: 767px) {
+  .sign__input:last-of-type{
+    margin-bottom: 173px;
+  }
+}

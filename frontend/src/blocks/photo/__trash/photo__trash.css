@@ -1,0 +1,22 @@
+.photo__trash {
+  display: none;
+  width: 18px;
+  height: 20px;
+  border: none;
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  background-color: rgba(255,255,255,0);
+  background-image: url(../../../images/trash.svg);
+  background-size: cover;
+  background-position: center;
+  padding: 0;
+ }
+
+ .photo__trash:hover {
+  opacity: 0.5;
+}
+
+.photo__trash:active, .photo__trash:focus {
+  outline: none;
+}

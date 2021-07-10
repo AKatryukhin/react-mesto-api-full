@@ -1,0 +1,11 @@
+.popup__close_type_image {
+
+  transform: translate(40px, 0) rotate(-45deg);
+}
+
+@media screen and (max-width: 767px) {
+  .popup__close_type_image {
+    transform: translate(0, -13px) rotate(-45deg);
+    }
+  }
+

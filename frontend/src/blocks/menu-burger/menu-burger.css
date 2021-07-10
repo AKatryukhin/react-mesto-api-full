@@ -1,0 +1,40 @@
+
+.menu-burger {
+  display: none;
+}
+
+
+@media screen and (max-width: 767px) {
+  .menu-burger {
+    position: relative;
+    width: 24px;
+    height: 21px;
+    display: block;
+  }
+}
+
+
+.menu-burger > span,
+  .menu-burger > span::after,
+  .menu-burger > span::before {
+      height: 3px;
+      width: 100%;
+      position: absolute;
+      background: #fff;
+      margin: 0 auto;
+      box-sizing: border-box;
+  }
+
+  .menu-burger > span {
+      top: 50%;
+  }
+  .menu-burger > span::after,
+  .menu-burger > span::before {
+      content: "";
+  }
+  .menu-burger > span::after {
+      bottom: 9px;
+  }
+  .menu-burger > span::before {
+      top: 9px;
+  }

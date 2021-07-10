@@ -1,0 +1,35 @@
+.menu-burger__toggle {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+
+  .menu-burger__toggle:checked ~ .header__link-container {
+    display: flex;
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translate(-50%);
+    flex-direction: column;
+
+  }
+
+  .menu-burger__toggle:checked ~ .header__link-container > span {
+   margin: 0;
+
+  }
+
+  .menu-burger__toggle:checked ~ .menu-burger > span { 
+    transform: rotate(45deg);
+  }
+
+  .menu-burger__toggle:checked ~ .menu-burger > span::before {
+    top: 0;
+    transform: rotate(0);
+  }
+  .menu-burger__toggle:checked ~ .menu-burger > span::after {
+    top: 0;
+    transform: rotate(90deg);
+  }
+
+}

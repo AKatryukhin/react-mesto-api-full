@@ -1,0 +1,27 @@
+.popup__close {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0,0,0,0);
+  background-image: url(../../../images/add-button.svg);
+  background-size: 100%;
+  border: none;
+  align-self: flex-end;
+  transform: translate(70px, -35px) rotate(-45deg);
+}
+
+.popup__close {
+  opacity: 0.6;
+}
+
+.popup__close:active, .popup__close:focus {
+  outline: none;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__close {
+      width: 26px;
+      height: 26px;
+      transform: translate(25px, -38px) rotate(-45deg);
+  }
+}
+

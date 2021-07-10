@@ -1,0 +1,10 @@
+.photo__title {
+  max-width: 100%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 15px 31px 21px;
+  border-radius: 0 0 10px 10px;
+}

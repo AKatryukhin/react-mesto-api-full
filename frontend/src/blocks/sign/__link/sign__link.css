@@ -1,0 +1,16 @@
+.sign__link {
+  width: 100%;
+  color: #fff;
+  background-color: #000;
+  text-decoration: none;
+  font-family: "Inter", "Arial", "Helvetica", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.sign__link:hover {
+  opacity: 0.6;
+}

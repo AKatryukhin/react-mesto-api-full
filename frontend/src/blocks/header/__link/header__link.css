@@ -1,0 +1,25 @@
+.header__link {
+  width: 100%;
+  display: inline-block;
+  color: #fff;
+  background-color: #000;
+  text-decoration: none;
+  font-family: "Inter", "Arial", "Helvetica", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.2;
+  text-align: center;
+  justify-self: flex-end;
+}
+
+.header__link:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 767px) {
+  .header__link {
+    font-size: 14px;
+    color: #A9A9A9;
+  }
+}

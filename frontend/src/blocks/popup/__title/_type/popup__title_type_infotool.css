@@ -1,0 +1,15 @@
+.popup__title_type_infotool {
+  font-family: "Inter", "Arial", "Helvetica", sans-serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 1.2;
+  margin: 0 auto;
+  text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__title_type_infotool {
+      font-size: 18px;
+  }
+}
