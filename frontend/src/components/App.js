@@ -18,6 +18,7 @@ import ProtectedRoute from './ProtectedRoute';
 import { AppContext } from '../contexts/AppContext';
 import * as auth from '../utils/auth';
 
+
 function App() {
   // переменные состояния, отвечающие за видимость попапов
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -25,6 +26,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = React.useState(false);
+  const [isCardSending, setIsCardSending] = React.useState(false);
     // переменная состояния, значением которой задается ссылка на карточку
     const [selectedCard, setSelectedCard] = useState(null);
 
@@ -60,7 +62,7 @@ function App() {
       api
         .getInitialCards()
         .then((cardsData) => {
-          setCards(cardsData);
+          setCards(cardsData.cards);
         })
         .catch(err => setIsCardsLoadError(err))
         .finally(() => setIsCardsLoading(false));
@@ -80,7 +82,7 @@ function App() {
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     // Отправляем запросы в API и получаем обновлённые данные карточки
     api
       .changeLikeCardStatus(card._id, isLiked)
@@ -153,7 +155,10 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
-
+  const [infoToolTipTitle, setInfoToolTipTitle] = useState({
+    title: "Что-то пошло не так! Попробуйте ещё раз.",
+    icon: false,
+  });
  
   const [isUserSending, setIsUserSending] = React.useState(false);
   function handleUpdateUser({ name, about }) {
@@ -182,13 +187,13 @@ function App() {
       .finally(() => setIsAvatarSending(false));
   }
 
-  const [isCardSending, setIsCardSending] = React.useState(false);
+ 
   function handleAddPlaceSubmit({ name, link }, onSuccess) {
     setIsCardSending(true);
     api
       .addCard({ name, link })
-      .then((newCard) => {
-        setCards([newCard, ...cards]);
+      .then((res) => {
+        setCards([res.card, ...cards]);
         onSuccess();
         closeAllPopups();
       })
@@ -196,15 +201,14 @@ function App() {
       .finally(() => setIsCardSending(false));
   }
 
-  
-
   const handleRegister = ({ email, password }, onSuccess) => {
     auth
       .register({ email, password })
       .then((data) => {
-        setUserData({ email: data.data.email });
+        setUserData({ email: data.email });
         setIsRegist(true);
         handleInfoTooltipClick();
+        setInfoToolTipTitle({ icon: true, title: "Вы успешно зарегистрировались!" });
         onSuccess();
         history.push('/signin');
       })
@@ -212,51 +216,36 @@ function App() {
         console.log(err);
         setIsRegist(false);
         handleInfoTooltipClick();
+        setInfoToolTipTitle({
+          icon: false,
+          title: "Что-то пошло не так! Попробуйте ещё раз.",
+        });
       });
   };
 
   const handleLogin = ({ email, password }, onSuccess) => {
     auth
       .authorize({ email, password })
-      .then(({ token }) => {
-        if ({ token }) {
-          localStorage.setItem('jwt', token);
-        }
-        checkToken();
+      .then((res) => {
+        setUserData({ email: res.email });
+        setLoggedIn(true);
         onSuccess();
+        history.push('/main');
       })
       .catch((err) => {
         console.log(err);
         handleInfoTooltipClick();
-      });
-  };
-
-  useEffect(() => {
-    checkToken();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const checkToken = () => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      auth
-        .getContent(jwt)
-        .then((res) => {
-          if (res) {
-            setLoggedIn(true);
-            history.push('/main');
-            setUserData({ email: res.data.email });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
+        setInfoToolTipTitle({
+          icon: false,
+          title: "Что-то пошло не так! Попробуйте ещё раз.",
         });
-    }
+      });
   };
 
   const signOut = () => {
     localStorage.removeItem('jwt');
     history.push('/login');
+    setUserData({ email: "" });
     setLoggedIn(false);
   };
 
@@ -321,7 +310,8 @@ function App() {
             <InfoTooltip
               isOpen={isInfoTooltipOpen}
               onClose={closeAllPopups}
-              isRegist={false}
+              title={infoToolTipTitle.title}
+              icon={infoToolTipTitle.icon}
             />
             <ImagePopup onClose={closeAllPopups} card={selectedCard} />
             <PopupWithForm 

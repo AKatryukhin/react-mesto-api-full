@@ -12,7 +12,7 @@ export const register = ({ email, password }) => {
     method: 'POST',
     credentials: 'include',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email, password }
       )})
@@ -24,22 +24,22 @@ export const authorize = ({ email, password })  => {
     method: 'POST',
     credentials: 'include',
     headers: {
-      'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ email, password })
   })
-  .then(handleResponse)
+  .then(handleResponse);
 };
 
 
-export const getContent = (token) => {
+export const getContent = () => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     credentials: 'include',
     headers: {
+      'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
+      // 'Authorization': `Bearer ${token}`,
     }
   })
   .then(handleResponse)

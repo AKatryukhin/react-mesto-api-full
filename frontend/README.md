@@ -19,6 +19,9 @@ https://akatryukhin.github.io/mesto-react/
 https://akatryukhin.github.io/react-mesto-auth/
 
 
+Проект взаимодействует с фронтенд частью: api.mesto.front.nomoredomains.monster
+
+
 
 
 

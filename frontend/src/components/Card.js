@@ -5,7 +5,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete, isCardsError }) {
   const currentUser = React.useContext(CurrentUserContext);
 
   // Определяем, являемся ли мы владельцем текущей карточки
-  const isOwn = card.owner._id === currentUser._id;
+  const isOwn = card.owner === currentUser._id;
 
   // Создаём переменную, которую после зададим в `className` для кнопки удаления
   const cardDeleteButtonClassName = `photo__trash ${
@@ -13,7 +13,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete, isCardsError }) {
   }`;
 
   // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
-  const isLiked = card.likes.some((i) => i._id === currentUser._id);
+  const isLiked = card.likes.some((i) => i === currentUser._id);
 
   // Создаём переменную, которую после зададим в `className` для кнопки лайка
   const cardLikeButtonClassName = `photo__like ${
@@ -58,7 +58,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete, isCardsError }) {
               aria-label='Кнопка для Лайков'
               onClick={handleLikeClick}
             />
-            <p className='photo__like-total'>{card.likes.length}</p>
+            <p className='photo__like-total'>{card.likes ? card.likes.length : '0'}</p>
           </div>
         </figcaption>
       </figure>

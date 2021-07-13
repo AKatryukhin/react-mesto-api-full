@@ -15,7 +15,6 @@ function Main({
   isCardsError,
 }) {
   const currentUser = React.useContext(CurrentUserContext);
-
   return (
     <main className='content container'>
       <section className='profile content__profile container'>
@@ -48,7 +47,8 @@ function Main({
       <section className='galery content__galery' aria-label='Фото мест'>
         {isCardsLoading && <Preloader />}
 
-        {!isCardsLoading &&
+        {
+        !isCardsLoading &&
           !isCardsError &&
           cards.map((card) => {
             return (
@@ -61,7 +61,9 @@ function Main({
                 isCardsError={isCardsError}
               />
             );
-          })}
+          }
+          )
+          }
       </section>
     </main>
   );

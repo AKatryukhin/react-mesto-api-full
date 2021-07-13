@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -5,16 +6,13 @@ const cookieParser = require('cookie-parser');
 const { celebrate, Joi } = require('celebrate');
 const { errors } = require('celebrate');
 const auth = require('./middlewares/auth');
-const cors = require('./middlewares/cors');
+const corsa = require('./middlewares/corsa');
 const { login, createUser } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/not-found-err');
 const {
   MONGO_URL,
-  allowedCors,
-  DEFAULT_ALLOWED_METHODS,
 } = require('./utils/constants');
-
 const { PORT = 3000 } = process.env;
 const app = express();
 app.use(cookieParser());
@@ -35,26 +33,14 @@ async function start() {
     console.log(`Init application error: ${error}`);
   }
 }
-
+app.use(corsa);
 app.use(requestLogger);
-app.use(cors);
 
-// app.use((req, res, next) => {
-//   const { origin } = req.headers;
-//   const { method } = req;
-//   const requestHeaders = req.headers['access-control-request-headers'];
-
-//   if (allowedCors.includes(origin)) {
-//     res.header('Access-Control-Allow-Origin', origin);
-//     // res.header('Access-Control-Allow-Origin', '*');
-//   }
-//   if (method === 'OPTIONS') {
-//     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-//     res.header('Access-Control-Allow-Headers', requestHeaders);
-//   }
-
-//   next();
-// });
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post('/signup', celebrate({
   body: Joi.object().keys({
