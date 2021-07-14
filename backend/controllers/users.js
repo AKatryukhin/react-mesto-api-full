@@ -7,7 +7,7 @@ const AuthentificationError = require('../errors/authentification-err');
 const ValidationError = require('../errors/validation-err');
 const DuplicateError = require('../errors/duplicate-err');
 
-const { JWT_SECRET } = process.env;
+const { JWT_SECRET = 'dev-key' } = process.env;
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
@@ -21,6 +21,7 @@ module.exports.login = (req, res, next) => {
           {
             maxAge: 3600000 * 24 * 7,
             httpOnly: true,
+            sameSite: true,
           })
         .send(user);
     })
