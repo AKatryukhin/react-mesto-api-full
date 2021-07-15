@@ -7,7 +7,7 @@ const AuthentificationError = require('../errors/authentification-err');
 const ValidationError = require('../errors/validation-err');
 const DuplicateError = require('../errors/duplicate-err');
 
-const { JWT_SECRET = 'dev-key' } = process.env;
+const { JWT_SECRET = 'dev-secret' } = process.env;
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
@@ -23,7 +23,13 @@ module.exports.login = (req, res, next) => {
             httpOnly: true,
             sameSite: true,
           })
-        .send(user);
+        .send({
+          _id: user._id,
+          email: user.email,
+          name: user.name,
+          about: user.about,
+          avatar: user.avatar,
+        });
     })
     .catch(() => {
       next(new AuthentificationError('Неправильный адрес почты или пароль'));

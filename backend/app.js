@@ -44,8 +44,8 @@ async function start() {
   }
 }
 app.use(corsa);
-app.use(limiter);
 app.use(requestLogger);
+app.use(limiter);
 
 app.get('/crash-test', () => {
   setTimeout(() => {
